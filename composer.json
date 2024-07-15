@@ -1,6 +1,6 @@
 {  "name": "maatify/cron-email",
   "description": "PHP library for Cron Email handler, known by our team",
-  "version": "1.0.03",
+  "version": "1.0.04",
   "type": "library",
   "keywords": [
     "PHP",
