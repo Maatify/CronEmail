@@ -69,6 +69,11 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
             $where_to_add .= ' AND `time` <= ?';
             $where_val_to_add[] = $record_date_to;
         }
+        if(!empty($_POST['user_id'])){
+            $admin_id = $this->postValidator->Optional('user_id', ValidatorConstantsTypes::Int, $this->class_name . __LINE__);
+            $where_to_add .= ' AND `admin_id` = ?';
+            $where_val_to_add[] = $admin_id;
+        }
 
         $this->pagination($tables, $cols, $where_to_add, $where_val_to_add);
     }
