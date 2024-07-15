@@ -34,7 +34,7 @@ class CronEmailRecord extends CronEmail
 
     public function RecordConfirmLink(int $ct_id,string $email, string $message): void
     {
-        $this->AddCron($ct_id, $email, $email, $message, 'Confirm Mail', self::TYPE_CONFIRM);
+        $this->AddCron($ct_id, $email, $email, $message, 'Confirm Mail', self::TYPE_CONFIRM_URL);
     }
 
     public function RecordConfirmCode(int $ct_id,string $email, string $code, $name = ''): void

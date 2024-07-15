@@ -55,7 +55,7 @@ class CronEmailSender extends CronEmail
                         $type = 'Message';
                         break;
 
-                    case self::TYPE_CONFIRM;
+                    case self::TYPE_CONFIRM_URL;
                         $type = 'ConfirmCustomerLink';
                         break;
 
