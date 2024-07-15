@@ -32,14 +32,14 @@ class CronEmailSender extends CronEmail
     public function SentMarker(int $cron_id): void
     {
         $this->Edit([
-            'is_sent'     => 1,
+            'status'     => 1,
             'sent_time'   => AppFunctions::CurrentDateTime(),
         ], "`$this->identify_table_id_col_name` = ? ", [$cron_id]);
     }
 
     private function NotSent(): array
     {
-        return $this->RowsThisTable('*', '`is_sent` = ? ', [0]);
+        return $this->RowsThisTable('*', '`status` = ? ', [0]);
     }
 
     public function CronSend(): void

@@ -31,7 +31,7 @@ abstract class CronEmail extends DbConnector
             'message'                        => 0,
             'subject'                        => 0,
             'record_time'                    => 0,
-            'is_sent'                        => 1,
+            'status'                        => 1,
             'sent_time'                      => 0,
         ];
 
@@ -56,7 +56,7 @@ abstract class CronEmail extends DbConnector
             'message'     => $message,
             'subject'     => $subject,
             'record_time' => AppFunctions::CurrentDateTime(),
-            'is_sent'     => 0,
+            'status'     => 0,
             'sent_time'   => AppFunctions::DefaultDateTime(),
         ]);
     }
