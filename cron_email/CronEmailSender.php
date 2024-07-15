@@ -42,11 +42,65 @@ class CronEmailSender extends CronEmail
         return $this->RowsThisTable('*', '`status` = ? ', [0]);
     }
 
+    protected function NotSentByType(int $type_id): array
+    {
+        return $this->RowsThisTable('*', "`status` = ? AND `type_id` = ? ORDER BY `$this->tableName`.`$this->identify_table_id_col_name` ASC LIMIT 10", [0, $type_id]);
+    }
+
+
+
+    private function NotSentConfirmCode(): array
+    {
+        return $this->NotSentByType(self::TYPE_CONFIRM_CODE);
+    }
+
+    private function NotSentPasswords(): array
+    {
+        return $this->NotSentByType(self::TYPE_TEMP_PASSWORD);
+    }
+
+    private function NotSentConfirmUrl(): array
+    {
+        return $this->NotSentByType(self::TYPE_CONFIRM_URL);
+    }
+
+    private function NotSentAdminMessage(): array
+    {
+        return $this->NotSentByType(self::TYPE_ADMIN_MESSAGE);
+    }
+
+    private function NotSentMessage(): array
+    {
+        return $this->NotSentByType(self::TYPE_MESSAGE);
+    }
+
+    private function NotSentPromotion(): array
+    {
+        return $this->NotSentByType(self::TYPE_PROMOTION);
+    }
+
+    private function NotSentEmail(): array
+    {
+        if(!$list = $this->NotSentConfirmCode()){
+            if(!$list = $this->NotSentPasswords()){
+                if(!$list = $this->NotSentConfirmUrl()){
+                    if(!$list = $this->NotSentAdminMessage()){
+                        if(!$list = $this->NotSentMessage()){
+                            $list = $this->NotSentPromotion();
+                        }
+                    }
+                }
+            }
+        }
+        return $list;
+    }
+
     public function CronSend(): void
     {
         Queue::obj()->Email();
-        if($all = $this->NotSent()){
+        if($all = $this->NotSentEmail()){
             foreach ($all as $item){
+
                 $mailer = new Mailer($item['email'], $item['name']);
                 $message = $item['message'];
                 switch ($item['type_id']){
