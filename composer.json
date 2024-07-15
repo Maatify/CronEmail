@@ -1,6 +1,6 @@
 {  "name": "maatify/cron-email",
   "description": "PHP library for Cron Email handler, known by our team",
-  "version": "1.0.01",
+  "version": "1.0.02",
   "type": "library",
   "keywords": [
     "PHP",
@@ -62,7 +62,9 @@
   },
   "autoload": {
     "psr-4": {
-      "Maatify\\CronEmail\\": "cron_email/"
+      "Maatify\\CronEmail\\": "cron_email/",
+      "Maatify\\CronEmailOff\\": "cron_email_off/",
+      "Maatify\\CronEmailBlock\\": "cron_email_block/"
     }
   }
 }

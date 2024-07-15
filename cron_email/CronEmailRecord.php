@@ -57,6 +57,6 @@ class CronEmailRecord extends CronEmail
 
     public function RecordAdminMessage(int $ct_id,string $name, string $email, string $message, string $subject): void
     {
-        $this->AddCron($ct_id, $name, $email, $message, $subject, 7);
+        $this->AddCron($ct_id, $name, $email, $message, $subject, self::TYPE_ADMIN_MESSAGE);
     }
 }

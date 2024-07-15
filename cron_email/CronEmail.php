@@ -21,7 +21,7 @@ abstract class CronEmail extends DbConnector
     const IDENTIFY_TABLE_ID_COL_NAME = 'cron_id';
     const LOGGER_TYPE                = self::TABLE_NAME;
     const LOGGER_SUB_TYPE            = '';
-    const Cols                       =
+    const Cols           =
         [
             self::IDENTIFY_TABLE_ID_COL_NAME => 1,
             'type_id'                        => 1,
@@ -45,6 +45,15 @@ abstract class CronEmail extends DbConnector
     const TYPE_TEMP_PASSWORD = 4;
     const TYPE_PROMOTION     = 5;
     const TYPE_ADMIN_MESSAGE = 7;
+
+    const ALL_TYPES_NAME = [
+        self::TYPE_MESSAGE => 'message',
+        self::TYPE_CONFIRM_URL => 'confirm url',
+        self::TYPE_CONFIRM_CODE => 'confirm code',
+        self::TYPE_TEMP_PASSWORD => 'temp password',
+        self::TYPE_PROMOTION => 'promotion',
+        self::TYPE_ADMIN_MESSAGE => 'administrator message',
+    ];
 
     protected function AddCron(int $ct_id, string $name, string $email, string $message, string $subject, int $type_id = 1): void
     {
