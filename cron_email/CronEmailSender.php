@@ -15,6 +15,7 @@ use App\Assist\AppFunctions;
 use App\Assist\Encryptions\CronEmailEncryption;
 use App\DB\Tables\Queue;
 use Maatify\Mailer\Mailer;
+use Maatify\QueueManager\QueueManager;
 
 class CronEmailSender extends CronEmail
 {
@@ -44,7 +45,7 @@ class CronEmailSender extends CronEmail
 
     public function CronSend(): void
     {
-        Queue::obj()->Email();
+        QueueManager::obj()->Email();
         if($all = $this->NotSent()){
             foreach ($all as $item){
                 $mailer = new Mailer($item['email'], $item['name']);
