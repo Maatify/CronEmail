@@ -36,6 +36,10 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Require],
     ];
 
+    protected array $cols_to_edit = [
+        [ValidatorConstantsTypes::Description, ValidatorConstantsTypes::Description, ValidatorConstantsValidators::Require],
+    ];
+
     protected array $cols_to_filter = [
         [self::IDENTIFY_TABLE_ID_COL_NAME, ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         ['ct_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
