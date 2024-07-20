@@ -93,6 +93,6 @@ class CronEmailDbPortalHandler extends DbPortalHandler
             $where_val_to_add[] = $record_date_to;
         }
 
-        $this->pagination($tables, $cols, $where_to_add, $where_val_to_add);
+        $this->Pagination($tables, $cols, $where_to_add, $where_val_to_add);
     }
 }

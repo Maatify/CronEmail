@@ -13,7 +13,6 @@ namespace Maatify\CronEmail;
 
 use App\Assist\AppFunctions;
 use App\Assist\Encryptions\CronEmailEncryption;
-use App\DB\Tables\Queue;
 use Maatify\Mailer\Mailer;
 use Maatify\QueueManager\QueueManager;
 
