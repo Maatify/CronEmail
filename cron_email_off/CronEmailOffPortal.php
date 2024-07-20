@@ -37,6 +37,7 @@ class CronEmailOffPortal extends CronEmailDbPortalHandler
         [ValidatorConstantsTypes::Description, ValidatorConstantsTypes::Description, ValidatorConstantsValidators::Require],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Require],
         ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
+        ['time', ValidatorConstantsTypes::DateTime, ValidatorConstantsValidators::Require],
     ];
 
     protected array $cols_to_edit = [

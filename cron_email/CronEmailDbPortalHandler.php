@@ -11,6 +11,7 @@
 
 namespace Maatify\CronEmail;
 
+use App\Assist\AppFunctions;
 use App\DB\DBS\DbPortalHandler;
 use Maatify\Json\Json;
 use Maatify\PostValidatorV2\ValidatorConstantsTypes;
@@ -33,6 +34,7 @@ class CronEmailDbPortalHandler extends DbPortalHandler
     public function Record(): void
     {
         $_POST['admin_id'] = AdminLoginToken::obj()->GetAdminID();
+        $_POST['time'] = AppFunctions::CurrentDateTime();
         $email = $this->postValidator->Require(ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, $this->class_name . __LINE__);
         $this->jsonCheckEmailExist($email);
         parent::Record();
