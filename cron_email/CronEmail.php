@@ -73,8 +73,6 @@ abstract class CronEmail extends DbConnector
         ]);
     }
 
-
-
     public function Resend(): void
     {
         $this->ValidatePostedTableId();
