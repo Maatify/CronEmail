@@ -13,6 +13,7 @@ namespace Maatify\CronEmail;
 
 use App\Assist\AppFunctions;
 use App\DB\DBS\DbConnector;
+use Maatify\Json\Json;
 
 abstract class CronEmail extends DbConnector
 {
@@ -70,5 +71,21 @@ abstract class CronEmail extends DbConnector
             'status'     => 0,
             'sent_time'   => AppFunctions::DefaultDateTime(),
         ]);
+    }
+
+
+
+    public function Resend(): void
+    {
+        $this->ValidatePostedTableId();
+        $this->AddCron(
+            $this->current_row['ct_id'],
+            $this->current_row['name'],
+            $this->current_row['email'],
+            $this->current_row['message'],
+            $this->current_row['subject'],
+            $this->current_row['type_id'],
+        );
+        Json::Success(line: $this->class_name . __LINE__);
     }
 }
