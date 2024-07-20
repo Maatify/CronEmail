@@ -26,18 +26,17 @@ composer require maatify/cron-email
 --
 
 CREATE TABLE `cron_email` (
-  `id` int NOT NULL,
-  `type_id` int NOT NULL DEFAULT '1' COMMENT '1=message; 2=confirm; 3=promotion',
-  `ct_id` int NOT NULL DEFAULT '0',
-  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `email` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `subject` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `record_time` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `sent_time` datetime NOT NULL DEFAULT '1900-01-01 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+      `cron_id` int(11) NOT NULL,
+      `type_id` int(11) NOT NULL DEFAULT '1' COMMENT '1=messge; 2=confirm; 3=promotion',
+      `ct_id` int(11) NOT NULL DEFAULT '0',
+      `name` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `email` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `message` mediumtext COLLATE utf8mb4_unicode_ci,
+      `subject` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `record_time` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+      `status` tinyint(1) NOT NULL DEFAULT '0',
+      `sent_time` datetime NOT NULL DEFAULT '1900-01-01 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- --------------------------------------------------------
 
 --

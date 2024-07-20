@@ -35,6 +35,7 @@ class CronEmailPortal extends CronEmailDbPortalHandler
     protected array $cols_to_filter = [
         [self::IDENTIFY_TABLE_ID_COL_NAME, ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         ['recipient_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
+        ['recipient_type', ValidatorConstantsTypes::String, ValidatorConstantsValidators::Optional],
         [ValidatorConstantsTypes::Status, ValidatorConstantsTypes::Status, ValidatorConstantsValidators::Optional],
         ['type_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Optional],
