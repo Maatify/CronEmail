@@ -11,7 +11,6 @@
 
 namespace Maatify\CronEmail;
 
-use App\Assist\AppFunctions;
 use App\Assist\Encryptions\CronEmailEncryption;
 use Maatify\Mailer\Mailer;
 use Maatify\QueueManager\QueueManager;
@@ -27,19 +26,6 @@ class CronEmailSender extends CronEmail
             self::$instance = new self();
         }
         return self::$instance;
-    }
-
-    protected function SentMarker(int $cron_id): void
-    {
-        $this->Edit([
-            'status'     => 1,
-            'sent_time'   => AppFunctions::CurrentDateTime(),
-        ], "`$this->identify_table_id_col_name` = ? ", [$cron_id]);
-    }
-
-    protected function NotSent(): array
-    {
-        return $this->RowsThisTable('*', '`status` = ? ', [0]);
     }
 
     public function CronSend(): void

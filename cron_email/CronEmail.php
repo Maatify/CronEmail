@@ -100,4 +100,17 @@ abstract class CronEmail extends DbConnector
         $this->Logger($log, $changes, $_GET['action']);
         Json::Success(line: $this->class_name . __LINE__);
     }
+
+    protected function SentMarker(int $cron_id): void
+    {
+        $this->Edit([
+            'status'     => 1,
+            'sent_time'   => AppFunctions::CurrentDateTime(),
+        ], "`$this->identify_table_id_col_name` = ? ", [$cron_id]);
+    }
+
+    protected function NotSent(): array
+    {
+        return $this->RowsThisTable('*', '`status` = ? ', [0]);
+    }
 }
