@@ -11,6 +11,7 @@
 
 namespace Maatify\CronEmailBlock;
 
+use App\DB\Tables\Admin\AdminLoginToken;
 use Maatify\CronEmail\CronEmailDbPortalHandler;
 use Maatify\PostValidatorV2\ValidatorConstantsTypes;
 use Maatify\PostValidatorV2\ValidatorConstantsValidators;
@@ -34,6 +35,8 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
         ['ct_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
         [ValidatorConstantsTypes::Description, ValidatorConstantsTypes::Description, ValidatorConstantsValidators::Require],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Require],
+        ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
+
     ];
 
     protected array $cols_to_edit = [
@@ -44,6 +47,7 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
         [self::IDENTIFY_TABLE_ID_COL_NAME, ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         ['ct_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Optional],
+        ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
     ];
 
     public static function obj(): self
@@ -53,6 +57,12 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
         }
 
         return self::$instance;
+    }
+
+    public function Record(): void
+    {
+        $_POST['admin_id'] = AdminLoginToken::obj()->GetAdminID();
+        parent::Record();
     }
 
     public function AllPaginationThisTableFilter(string $order_with_asc_desc = ''): void
