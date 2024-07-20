@@ -45,9 +45,10 @@ class CronEmailSender extends CronEmail
     public function CronSend(): void
     {
         QueueManager::obj()->Email();
+        $mailer = new Mailer();
         if($all = $this->NotSent()){
             foreach ($all as $item){
-                $mailer = new Mailer($item['email'], $item['name']);
+                $mailer_sender = $mailer->reInitiateSender($item['email'], $item['name']);
                 $message = $item['message'];
                 switch ($item['type_id']){
 
@@ -76,7 +77,7 @@ class CronEmailSender extends CronEmail
                     default;
                         $type = 'Message';
                 }
-                if($mailer->$type($message, $item['subject'])){
+                if($mailer_sender->$type($message, $item['subject'])){
                     $this->SentMarker($item[$this->identify_table_id_col_name]);
                 }
             }
