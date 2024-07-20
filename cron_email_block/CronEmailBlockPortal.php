@@ -48,7 +48,7 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
         [self::IDENTIFY_TABLE_ID_COL_NAME, ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         ['ct_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Optional],
-        ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
+        ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
     ];
 
     public static function obj(): self
