@@ -85,13 +85,18 @@ class CronEmailPortal extends CronEmailDbPortalHandler
 
     public function CronEmailInitialize(): void
     {
-        $all = array();
+        Json::Success($this->InitializeArray(), line: $this->class_name . __LINE__);
+    }
+
+    public function InitializeArray(): array
+    {
+        $types = array();
         foreach (CronEmail::ALL_TYPES_NAME as $key => $type) {
-            $all[] = [
+            $types[] = [
                 'type_id' => $key,
                 'type_name' => $type,
             ];
         }
-        Json::Success($all, line: $this->class_name . __LINE__);
+        return $types;
     }
 }

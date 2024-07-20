@@ -22,7 +22,7 @@ abstract class CronEmail extends DbConnector
     const IDENTIFY_TABLE_ID_COL_NAME = 'cron_id';
     const LOGGER_TYPE                = self::TABLE_NAME;
     const LOGGER_SUB_TYPE            = '';
-    const Cols           =
+    const Cols                       =
         [
             self::IDENTIFY_TABLE_ID_COL_NAME => 1,
             'type_id'                        => 1,
@@ -32,9 +32,11 @@ abstract class CronEmail extends DbConnector
             'message'                        => 0,
             'subject'                        => 0,
             'record_time'                    => 0,
-            'status'                        => 1,
+            'status'                         => 1,
             'sent_time'                      => 0,
         ];
+    const RECIPIENT_TYPE             = 'customer';
+
 
     protected string $tableName = self::TABLE_NAME;
     protected string $tableAlias = self::TABLE_ALIAS;
@@ -42,57 +44,59 @@ abstract class CronEmail extends DbConnector
     protected string $logger_type = self::LOGGER_TYPE;
     protected string $logger_sub_type = self::LOGGER_SUB_TYPE;
     protected array $cols = self::Cols;
-    const TYPE_MESSAGE      = 1;
-    const TYPE_CONFIRM_URL  = 2;
-    const TYPE_CONFIRM_CODE = 3;
+    protected string $recipient_type = self::RECIPIENT_TYPE;
+
+    const TYPE_MESSAGE       = 1;
+    const TYPE_CONFIRM_URL   = 2;
+    const TYPE_CONFIRM_CODE  = 3;
     const TYPE_TEMP_PASSWORD = 4;
     const TYPE_PROMOTION     = 5;
     const TYPE_ADMIN_MESSAGE = 7;
 
     const ALL_TYPES_NAME = [
-        self::TYPE_MESSAGE => 'message',
-        self::TYPE_CONFIRM_URL => 'confirm url',
-        self::TYPE_CONFIRM_CODE => 'confirm code',
+        self::TYPE_MESSAGE       => 'message',
+        self::TYPE_CONFIRM_URL   => 'confirm url',
+        self::TYPE_CONFIRM_CODE  => 'confirm code',
         self::TYPE_TEMP_PASSWORD => 'temp password',
-        self::TYPE_PROMOTION => 'promotion',
+        self::TYPE_PROMOTION     => 'promotion',
         self::TYPE_ADMIN_MESSAGE => 'administrator message',
     ];
 
-    protected function AddCron(int $ct_id, string $name, string $email, string $message, string $subject, int $type_id = 1): void
+    protected function AddCron(int $recipient_id, string $name, string $email, string $message, string $subject, int $type_id = 1): void
     {
         $this->Add([
-            'ct_id'       => $ct_id,
-            'type_id'     => $type_id,
-            'name'        => $name,
-            'email'       => $email,
-            'message'     => $message,
-            'subject'     => $subject,
-            'record_time' => AppFunctions::CurrentDateTime(),
-            'status'     => 0,
-            'sent_time'   => AppFunctions::DefaultDateTime(),
+            'recipient_id'   => $recipient_id,
+            'recipient_type' => $this->recipient_type,
+            'type_id'        => $type_id,
+            'name'           => $name,
+            'email'          => $email,
+            'message'        => $message,
+            'subject'        => $subject,
+            'record_time'    => AppFunctions::CurrentDateTime(),
+            'status'         => 0,
+            'sent_time'      => AppFunctions::DefaultDateTime(),
         ]);
     }
 
     public function Resend(): void
     {
         $this->ValidatePostedTableId();
-        $this->AddCron(
-            $this->current_row['ct_id'],
-            $this->current_row['name'],
-            $this->current_row['email'],
-            $this->current_row['message'],
-            $this->current_row['subject'],
-            $this->current_row['type_id'],
-        );
+        $this->Add([
+            'recipient_id'   => $this->current_row['recipient_id'],
+            'email'          => $this->current_row['email'],
+            'recipient_type' => $this->recipient_type,
+            'type_id'        => $this->current_row['type_id'],
+            'name'           => $this->current_row['name'],
+            'message'        => $this->current_row['message'],
+            'subject'        => $this->current_row['subject'],
+            'record_time'    => AppFunctions::CurrentDateTime(),
+            'status'         => 0,
+            'sent_time'      => AppFunctions::DefaultDateTime(),
+        ]);
         $this->logger_keys = [$this->identify_table_id_col_name => $this->row_id];
         $log = $this->logger_keys;
         $log['change'] = 'Duplicate cron id: ' . $this->current_row[$this->identify_table_id_col_name];
-        $changes[] = ['ct_id', '', $this->current_row['ct_id']];
-        $changes[] = ['name', '', $this->current_row['name']];
-        $changes[] = ['email', '', $this->current_row['email']];
-        $changes[] = ['message', '', $this->current_row['message']];
-        $changes[] = ['subject', '', $this->current_row['subject']];
-        $changes[] = ['type_id', '', $this->current_row['type_id']];
+        $changes = array();
         $this->Logger($log, $changes, $_GET['action']);
         Json::Success(line: $this->class_name . __LINE__);
     }
