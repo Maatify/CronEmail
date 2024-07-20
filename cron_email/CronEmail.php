@@ -38,6 +38,8 @@ abstract class CronEmail extends DbConnector
     protected string $tableName = self::TABLE_NAME;
     protected string $tableAlias = self::TABLE_ALIAS;
     protected string $identify_table_id_col_name = self::IDENTIFY_TABLE_ID_COL_NAME;
+    protected string $logger_type = self::LOGGER_TYPE;
+    protected string $logger_sub_type = self::LOGGER_SUB_TYPE;
     protected array $cols = self::Cols;
     const TYPE_MESSAGE      = 1;
     const TYPE_CONFIRM_URL  = 2;
