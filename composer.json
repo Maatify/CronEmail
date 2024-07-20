@@ -58,7 +58,8 @@
     "maatify/post-validator-v2": "^1.1",
     "maatify/open-ssl": "^1.0",
     "maatify/mailer": "^1.1",
-    "ext-openssl": "*"
+    "ext-openssl": "*",
+    "maatify/queue-manager": "^1.0"
   },
   "autoload": {
     "psr-4": {
