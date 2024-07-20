@@ -31,7 +31,7 @@ class CronEmailDbPortalHandler extends DbPortalHandler
     protected function Pagination(string $tables, string $cols, string $where_to_add, array $where_val_to_add): void
     {
         $result = $this->ArrayPaginationThisTableFilter($tables, $cols, $where_to_add, $where_val_to_add, " ORDER BY `$this->identify_table_id_col_name` ASC");
-        if (! empty($result['data'])) {
+        if (! empty($result['data']) && $this->tableName == CronEmail::TABLE_NAME) {
             $result['data'] = array_map(function ($item) {
                 $types = CronEmail::ALL_TYPES_NAME;
                 $item['type_name'] = $types[$item['type_id']];
