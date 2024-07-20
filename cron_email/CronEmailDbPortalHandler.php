@@ -54,7 +54,9 @@ class CronEmailDbPortalHandler extends DbPortalHandler
             $result['data'] = array_map(function ($item) {
                 $types = CronEmail::ALL_TYPES_NAME;
                 $item['type_name'] = $types[$item['type_id']];
-
+                if(in_array($item['type_id'], [CronEmail::TYPE_CONFIRM_CODE, CronEmail::TYPE_TEMP_PASSWORD])){
+                    $item['message'] = "{Encrypted}";
+                }
                 return $item;
             }, $result['data']);
         }
