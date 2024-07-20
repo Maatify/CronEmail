@@ -84,6 +84,16 @@ abstract class CronEmail extends DbConnector
             $this->current_row['subject'],
             $this->current_row['type_id'],
         );
+        $this->logger_keys = [$this->identify_table_id_col_name => $this->row_id];
+        $log = $this->logger_keys;
+        $log['change'] = 'Duplicate cron id: ' . $this->current_row[$this->identify_table_id_col_name];
+        $changes[] = ['ct_id', '', $this->current_row['ct_id']];
+        $changes[] = ['name', '', $this->current_row['name']];
+        $changes[] = ['email', '', $this->current_row['email']];
+        $changes[] = ['message', '', $this->current_row['message']];
+        $changes[] = ['subject', '', $this->current_row['subject']];
+        $changes[] = ['type_id', '', $this->current_row['type_id']];
+        $this->Logger($log, $changes, $_GET['action']);
         Json::Success(line: $this->class_name . __LINE__);
     }
 }
