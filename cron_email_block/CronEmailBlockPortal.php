@@ -13,6 +13,7 @@ namespace Maatify\CronEmailBlock;
 
 use App\DB\Tables\Admin\AdminLoginToken;
 use Maatify\CronEmail\CronEmailDbPortalHandler;
+use Maatify\Json\Json;
 use Maatify\PostValidatorV2\ValidatorConstantsTypes;
 use Maatify\PostValidatorV2\ValidatorConstantsValidators;
 
@@ -62,7 +63,16 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
     public function Record(): void
     {
         $_POST['admin_id'] = AdminLoginToken::obj()->GetAdminID();
+        $email = $this->postValidator->Require(ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, $this->class_name . __LINE__);
+        $this->jsonCheckEmailExist($email);
         parent::Record();
+    }
+
+    private function jsonCheckEmailExist(string $email): void
+    {
+        if($this->RowIsExistThisTable(' LOWER(`email`) = ? ', [strtolower($email)])) {
+            Json::Exist('email', $email . ' Already Exists', $this->class_name . __LINE__);
+        }
     }
 
     public function AllPaginationThisTableFilter(string $order_with_asc_desc = ''): void
