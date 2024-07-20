@@ -34,6 +34,7 @@ class CronEmailOffPortal extends CronEmailDbPortalHandler
         ['ct_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
         [ValidatorConstantsTypes::Description, ValidatorConstantsTypes::Description, ValidatorConstantsValidators::Require],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Require],
+        ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Require],
     ];
 
     protected array $cols_to_edit = [
@@ -44,6 +45,7 @@ class CronEmailOffPortal extends CronEmailDbPortalHandler
         [self::IDENTIFY_TABLE_ID_COL_NAME, ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         ['ct_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
         [ValidatorConstantsTypes::Email, ValidatorConstantsTypes::Email, ValidatorConstantsValidators::Optional],
+        ['admin_id', ValidatorConstantsTypes::Int, ValidatorConstantsValidators::Optional],
     ];
 
     public static function obj(): self
