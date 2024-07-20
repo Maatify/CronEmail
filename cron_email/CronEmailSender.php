@@ -29,7 +29,7 @@ class CronEmailSender extends CronEmail
         return self::$instance;
     }
 
-    public function SentMarker(int $cron_id): void
+    protected function SentMarker(int $cron_id): void
     {
         $this->Edit([
             'status'     => 1,
@@ -37,7 +37,7 @@ class CronEmailSender extends CronEmail
         ], "`$this->identify_table_id_col_name` = ? ", [$cron_id]);
     }
 
-    private function NotSent(): array
+    protected function NotSent(): array
     {
         return $this->RowsThisTable('*', '`status` = ? ', [0]);
     }
