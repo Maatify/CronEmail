@@ -55,8 +55,6 @@ class CronEmailOffPortal extends CronEmailDbPortalHandler
         return self::$instance;
     }
 
-
-
     public function AllPaginationThisTableFilter(string $order_with_asc_desc = ''): void
     {
         [$tables, $cols] = $this->HandleThisTableJoins();
