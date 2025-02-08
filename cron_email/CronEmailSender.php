@@ -1,6 +1,6 @@
 <?php
 /**
- * @PHP       Version >= 8.0
+ * @PHP       Version >= 8.2
  * @copyright ©2024 Maatify.dev
  * @author    Mohamed Abdulalim (megyptm) <mohamed@maatify.dev>
  * @since     2024-07-15 03:55 PM
@@ -28,11 +28,11 @@ class CronEmailSender extends CronEmail
         return self::$instance;
     }
 
-    public function CronSend(): void
+    public function cronSend(): void
     {
         QueueManager::obj()->Email();
         $mailer = new Mailer();
-        if($all = $this->NotSent()){
+        if($all = $this->notSent()){
             foreach ($all as $item){
                 $mailer_sender = $mailer->reInitiateSender($item['email'], $item['name']);
                 $message = $item['message'];
@@ -64,7 +64,7 @@ class CronEmailSender extends CronEmail
                         $type = 'Message';
                 }
                 if($mailer_sender->$type($message, $item['subject'])){
-                    $this->SentMarker($item[$this->identify_table_id_col_name]);
+                    $this->sentMarker($item[$this->identify_table_id_col_name]);
                 }
             }
         }

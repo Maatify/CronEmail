@@ -1,6 +1,6 @@
 <?php
 /**
- * @PHP       Version >= 8.0
+ * @PHP       Version >= 8.2
  * @copyright ©2024 Maatify.dev
  * @author    Mohamed Abdulalim (megyptm) <mohamed@maatify.dev>
  * @since     2024-07-17 11:28 AM
@@ -50,7 +50,7 @@ class CronEmailPortal extends CronEmailDbPortalHandler
         return self::$instance;
     }
 
-    public function AllPaginationThisTableFilter(string $order_with_asc_desc = ''): void
+    public function allPaginationThisTableFilter(string $order_with_asc_desc = ''): void
     {
         [$tables, $cols] = $this->HandleThisTableJoins();
         $where_to_add = '';
@@ -79,15 +79,15 @@ class CronEmailPortal extends CronEmailDbPortalHandler
             $where_to_add .= ' AND `sent_time` <= ?';
             $where_val_to_add[] = $sent_date_to;
         }
-        $this->Pagination($tables, $cols, $where_to_add, $where_val_to_add);
+        $this->pagination($tables, $cols, $where_to_add, $where_val_to_add);
     }
 
-    public function CronEmailInitialize(): void
+    public function cronEmailInitialize(): void
     {
-        Json::Success($this->InitializeArray(), line: $this->class_name . __LINE__);
+        Json::Success($this->initializeArray(), line: $this->class_name . __LINE__);
     }
 
-    public function InitializeArray(): array
+    public function initializeArray(): array
     {
         $types = array();
         foreach (CronEmail::ALL_TYPES_NAME as $key => $type) {

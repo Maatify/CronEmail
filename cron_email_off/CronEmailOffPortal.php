@@ -1,6 +1,6 @@
 <?php
 /**
- * @PHP       Version >= 8.0
+ * @PHP       Version >= 8.2
  * @copyright ©2024 Maatify.dev
  * @author    Mohamed Abdulalim (megyptm) <mohamed@maatify.dev>
  * @since     2024-07-17 10:19 AM
@@ -60,7 +60,7 @@ class CronEmailOffPortal extends CronEmailDbPortalHandler
         return self::$instance;
     }
 
-    public function AllPaginationThisTableFilter(string $order_with_asc_desc = ''): void
+    public function allPaginationThisTableFilter(string $order_with_asc_desc = ''): void
     {
         [$tables, $cols] = $this->HandleThisTableJoins();
         $where_to_add = '';

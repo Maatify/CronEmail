@@ -1,6 +1,6 @@
 <?php
 /**
- * @PHP       Version >= 8.0
+ * @PHP       Version >= 8.2
  * @copyright ©2024 Maatify.dev
  * @author    Mohamed Abdulalim (megyptm) <mohamed@maatify.dev>
  * @since     2024-07-15 03:55 PM
@@ -62,7 +62,7 @@ abstract class CronEmail extends DbConnector
         self::TYPE_ADMIN_MESSAGE => 'administrator message',
     ];
 
-    protected function AddCron(int $recipient_id, string $name, string $email, string $message, string $subject, int $type_id = 1): void
+    protected function addCron(int $recipient_id, string $name, string $email, string $message, string $subject, int $type_id = 1): void
     {
         $this->Add([
             'recipient_id'   => $recipient_id,
@@ -78,7 +78,7 @@ abstract class CronEmail extends DbConnector
         ]);
     }
 
-    public function Resend(): void
+    public function resend(): void
     {
         $this->ValidatePostedTableId();
         $this->Add([
@@ -101,7 +101,7 @@ abstract class CronEmail extends DbConnector
         Json::Success(line: $this->class_name . __LINE__);
     }
 
-    protected function SentMarker(int $cron_id): void
+    protected function sentMarker(int $cron_id): void
     {
         $this->Edit([
             'status'     => 1,
@@ -109,7 +109,7 @@ abstract class CronEmail extends DbConnector
         ], "`$this->identify_table_id_col_name` = ? ", [$cron_id]);
     }
 
-    protected function NotSent(): array
+    protected function notSent(): array
     {
         return $this->RowsThisTable('*', '`status` = ? ', [0]);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @PHP       Version >= 8.0
+ * @PHP       Version >= 8.2
  * @copyright ©2024 Maatify.dev
  * @author    Mohamed Abdulalim (megyptm) <mohamed@maatify.dev>
  * @since     2024-07-17 11:24 AM
@@ -12,8 +12,6 @@
 namespace Maatify\CronEmailBlock;
 
 use Maatify\CronEmail\CronEmailDbPortalHandler;
-use Maatify\Json\Json;
-use Maatify\Portal\Admin\AdminLoginToken;
 use Maatify\PostValidatorV2\ValidatorConstantsTypes;
 use Maatify\PostValidatorV2\ValidatorConstantsValidators;
 
@@ -63,7 +61,7 @@ class CronEmailBlockPortal extends CronEmailDbPortalHandler
         return self::$instance;
     }
 
-    public function AllPaginationThisTableFilter(string $order_with_asc_desc = ''): void
+    public function allPaginationThisTableFilter(string $order_with_asc_desc = ''): void
     {
         [$tables, $cols] = $this->HandleThisTableJoins();
         $where_to_add = '';
