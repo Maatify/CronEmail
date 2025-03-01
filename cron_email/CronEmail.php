@@ -13,6 +13,7 @@ namespace Maatify\CronEmail;
 
 use App\Assist\AppFunctions;
 use App\DB\DBS\DbConnector;
+use JetBrains\PhpStorm\NoReturn;
 use Maatify\Json\Json;
 
 abstract class CronEmail extends DbConnector
@@ -78,7 +79,7 @@ abstract class CronEmail extends DbConnector
         ]);
     }
 
-    public function resend(): void
+    #[NoReturn] public function resend(): void
     {
         $this->ValidatePostedTableId();
         $this->Add([

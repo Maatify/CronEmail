@@ -11,6 +11,7 @@
 
 namespace Maatify\CronEmail;
 
+use JetBrains\PhpStorm\NoReturn;
 use Maatify\Json\Json;
 use Maatify\PostValidatorV2\ValidatorConstantsTypes;
 use Maatify\PostValidatorV2\ValidatorConstantsValidators;
@@ -82,7 +83,7 @@ class CronEmailPortal extends CronEmailDbPortalHandler
         $this->pagination($tables, $cols, $where_to_add, $where_val_to_add);
     }
 
-    public function cronEmailInitialize(): void
+    #[NoReturn] public function cronEmailInitialize(): void
     {
         Json::Success($this->initializeArray(), line: $this->class_name . __LINE__);
     }

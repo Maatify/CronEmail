@@ -13,6 +13,7 @@ namespace Maatify\CronEmail;
 
 use App\Assist\AppFunctions;
 use App\DB\DBS\DbPortalHandler;
+use JetBrains\PhpStorm\NoReturn;
 use Maatify\Json\Json;
 use Maatify\PostValidatorV2\ValidatorConstantsTypes;
 
@@ -46,7 +47,7 @@ class CronEmailDbPortalHandler extends DbPortalHandler
         }
     }
 
-    protected function pagination(string $tables, string $cols, string $where_to_add, array $where_val_to_add): void
+    #[NoReturn] protected function pagination(string $tables, string $cols, string $where_to_add, array $where_val_to_add): void
     {
         $result = $this->ArrayPaginationThisTableFilter($tables, $cols, $where_to_add, $where_val_to_add, " ORDER BY `$this->identify_table_id_col_name` ASC");
         if (! empty($result['data']) && $this->tableName == CronEmail::TABLE_NAME) {
@@ -64,7 +65,7 @@ class CronEmailDbPortalHandler extends DbPortalHandler
         );
     }
 
-    public function remove(): void
+    #[NoReturn] public function remove(): void
     {
         $this->ValidatePostedTableId();
         $note = $this->postValidator->Optional('note', ValidatorConstantsTypes::Description, $this->class_name . __LINE__);
@@ -75,27 +76,19 @@ class CronEmailDbPortalHandler extends DbPortalHandler
         foreach ($this->current_row as $key => $value) {
             $logger_change = $logger[$key] = $value;
 
-            $changes[] = [
-                $key,
-                $logger_change,
-                '',
-            ];
+            $changes[$key] = $logger_change;
         }
         if (! empty($note)) {
             $logger['reason'] = $note;
 
-            $changes[] = [
-                'reason',
-                '',
-                $note,
-            ];
+            $changes['reason'] = $note;
         }
         $this->Logger($logger, $changes, 'Remove');
 
         Json::Success(line: $this->class_name . __LINE__);
     }
 
-    public function allPaginationThisTableFilterByTime(): void
+    #[NoReturn] public function allPaginationThisTableFilterByTime(): void
     {
         [$tables, $cols] = $this->HandleThisTableJoins();
         $where_to_add = '';
